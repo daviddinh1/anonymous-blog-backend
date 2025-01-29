@@ -17,4 +17,13 @@ async function createUser(req, res, next) {
   }
 }
 
-module.exports = { createUser };
+async function getUser(req, res, next) {
+  try {
+    const users = await signupService.getUser();
+    res.status(201).json({ users });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { createUser, getUser };

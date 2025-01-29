@@ -17,6 +17,18 @@ async function createUser(username, email, password) {
   }
 }
 
+async function getUser() {
+  try {
+    const user = await prisma.user.findMany();
+    console.log(user);
+    return user;
+  } catch (error) {
+    console.error("getuser failing");
+    throw new error("get user is not working");
+  }
+}
+
 module.exports = {
   createUser,
+  getUser,
 };
