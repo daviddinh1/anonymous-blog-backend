@@ -10,6 +10,12 @@ postRouter.post(
   postController.createPost
 );
 
+postRouter.post(
+  "/posts/comments",
+  passport.authenticate("jwt", { session: false }),
+  postController.createComment
+);
+
 postRouter.get("/posts", postController.getPost);
 
 //get post based on id but make it randomized
