@@ -10,10 +10,7 @@ postRouter.post(
   postController.createPost
 );
 
-postRouter.get("/posts", (req, res) => {
-  //allow this function to get a random id then redirect the user to the post page
-  res.json({ test: "testing" });
-});
+postRouter.get("/posts", postController.getPost);
 
 //get post based on id but make it randomized
 postRouter.get("/posts/:id", (req, res) => {

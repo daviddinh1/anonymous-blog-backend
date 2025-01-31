@@ -18,4 +18,26 @@ async function createPost(userId, body) {
   }
 }
 
-module.exports = { createPost };
+async function randomPostOutputter() {
+  try {
+    const postIds = await prisma.post.findMany({
+      select: { id: true },
+    });
+
+    if (postIds.length === 0) return null;
+
+    const randomIndex = Math.floor(Math.random() * postIds.length);
+    const randomId = postIds[randomIndex].id;
+
+    const randomPost = await prisma.post.findUnique({
+      where: { id: randomId },
+    });
+
+    return randomPost;
+  } catch (error) {
+    console.error("randomPostOutputter function failed", error);
+    return null;
+  }
+}
+
+module.exports = { createPost, randomPostOutputter };

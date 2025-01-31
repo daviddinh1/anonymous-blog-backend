@@ -13,4 +13,17 @@ async function createPost(req, res, next) {
   }
 }
 
-module.exports = { createPost };
+async function getPost(req, res, next) {
+  try {
+    const post = await postService.randomPostOutputter();
+    if (post === null) {
+      res.status(500).json({ error: "No post in db" });
+    } else {
+      res.json(post);
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { createPost, getPost };
