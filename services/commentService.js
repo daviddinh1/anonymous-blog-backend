@@ -6,9 +6,15 @@ async function createComment(postId, userId, body) {
   try {
     const comment = await prisma.comment.create({
       data: {
-        postId: postId,
-        userId: userId,
         body: body,
+        // Instead of providing postId directly, connect to the post by its id
+        post: {
+          connect: { id: postId },
+        },
+        // Similarly, if you have a user relation
+        user: {
+          connect: { id: userId },
+        },
       },
     });
     return comment;

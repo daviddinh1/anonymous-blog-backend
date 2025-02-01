@@ -18,7 +18,8 @@ async function createComment(req, res, next) {
   const { text, postId } = req.body; //remember when you create the "form" this is what the name should be
   const userId = req.user.id;
   try {
-    const comment = commentService.createComment(postId, userId, text);
+    const comment = await commentService.createComment(postId, userId, text);
+    console.log("comment object:", comment);
     res.status(201).json(comment);
   } catch (error) {
     next(error);
